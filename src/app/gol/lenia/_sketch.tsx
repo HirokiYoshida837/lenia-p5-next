@@ -4,7 +4,7 @@ import p5Types from 'p5'
 import {SketchComponent} from '@/components/components';
 import p5 from "p5";
 import {convolution} from "@/app/gol/core/convolution";
-import React from "react";
+import React, {MutableRefObject} from "react";
 import {bellCurve} from "@/app/gol/lenia/utils";
 
 export interface LeniaProps {
@@ -16,6 +16,13 @@ export interface LeniaProps {
 
 
     simulationInfo: SimulationInfo
+
+    refs: {
+        fieldRef: MutableRefObject<number[][]>
+        diffRef: MutableRefObject<number[][]>
+        convolutionRef: MutableRefObject<number[][]>
+    }
+
 }
 
 interface Kernel {
@@ -51,17 +58,21 @@ export const LeniaSketch: React.FC<LeniaProps> = ({...props}: LeniaProps) => {
     const T = 8;
 
     // 初期状態
-    let stateA: number[][] = [];
+    // let stateA: number[][] = [];
 
     const setUp = (p5: p5Types, canvasParentRef: Element) => {
-        p5.createCanvas(props.canvasInfo.canvasSize.x, props.canvasInfo.canvasSize.y).parent(canvasParentRef);
+        // p5.createCanvas(props.canvasInfo.canvasSize.x, props.canvasInfo.canvasSize.y).parent(canvasParentRef);
 
-        p5.frameRate(30)
+        p5.frameRate(10)
 
-        stateA = props.initialField
+
+        props.refs.fieldRef.current = props.initialField
+
+
+        // stateA = props.initialField
 
         // 初期状態を描画
-        drawCanvas(p5, stateA, props.canvasInfo)
+        // drawCanvas(p5, props.refs.fieldRef.current, props.canvasInfo)
 
         // p5.noLoop()
 
@@ -73,29 +84,29 @@ export const LeniaSketch: React.FC<LeniaProps> = ({...props}: LeniaProps) => {
         // update status
 
         // Aの状態とkernelを畳み込みしたものを計算
-        const convolved = convolution(stateA, props.kernel.kernelMatrix, 'wrap');
+        props.refs.convolutionRef.current = convolution(props.refs.fieldRef.current, props.kernel.kernelMatrix, 'wrap');
         // console.debug(`convolved`, convolved)
 
         // 畳み込みの計算結果から、各セルが次のフレームでどうなっているかを計算。
-        const diff = convolved.map(x => x.map(y => growth(y)))
+        props.refs.diffRef.current = props.refs.convolutionRef.current.map(x => x.map(y => growth(y)))
             .map(x => x.map(y => y / T))
         ;
         // console.log(`diff`, diff)
 
 
         // update
-        for (let i = 0; i < stateA.length; i++) {
-            for (let j = 0; j < stateA[i].length; j++) {
+        for (let i = 0; i < props.canvasInfo.gridSize.h; i++) {
+            for (let j = 0; j < props.canvasInfo.gridSize.w; j++) {
 
-                const value = diff[i][j];
-                stateA[i][j] = p5.constrain(stateA[i][j] + value, 0, 1);
+                const value = props.refs.diffRef.current[i][j];
+                props.refs.fieldRef.current[i][j] = p5.constrain(props.refs.fieldRef.current[i][j] + value, 0, 1);
             }
         }
 
         // console.debug(`nextA`, stateA);
 
         // update canvas
-        drawCanvas(p5, stateA, props.canvasInfo);
+        // drawCanvas(p5, props.refs.fieldRef.current, props.canvasInfo);
         // drawCanvas(p5, diff, props.canvasInfo);
         // drawCanvas(p5, convolved, props.canvasInfo);
     };

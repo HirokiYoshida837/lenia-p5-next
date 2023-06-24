@@ -7,6 +7,8 @@ import {createKernel} from "@/app/gol/lenia/utils";
 import {LeniaProps, LeniaSketch} from "@/app/gol/lenia/_sketch";
 import {initialField} from "@/app/gol/lenia/constants";
 import Image from "next/image";
+import {forwardRef, useRef} from "react";
+import {Plotter} from "@/app/gol/lenia/Plotter";
 
 export default function Home() {
 
@@ -23,26 +25,28 @@ export default function Home() {
         }
     }
 
-    // for (let i = 0; i < 26; i++) {
-    //     for (let j = 0; j < 40; j++) {
-    //         initField[20 + i][20 + j] = 1;
-    //     }
-    // }
 
     console.log(`init field`, initField)
 
 
-    const leniaProps: LeniaProps = {
-        canvasInfo: {
-            canvasSize: {
-                x: 64 * 8,
-                y: 64 * 8
-            },
-            gridSize: {
-                h: 64,
-                w: 64
-            }
+    const fieldRef = useRef<number[][]>([]);
+    const convolutionRef = useRef<number[][]>([]);
+    const diffRef = useRef<number[][]>([]);
+
+    const sharedCanvasInfo = {
+        canvasSize: {
+            x: 64 * 8,
+            y: 64 * 8
         },
+        gridSize: {
+            h: 64,
+            w: 64
+        }
+    }
+
+
+    const leniaProps: LeniaProps = {
+        canvasInfo: sharedCanvasInfo,
         initialField: initField,
 
         kernel: {
@@ -52,8 +56,14 @@ export default function Home() {
 
         simulationInfo: {
             T: 5,
-            growthM: 0.14,
+            growthM: 0.15,
             growthS: 0.0185,
+        },
+
+        refs: {
+            fieldRef,
+            convolutionRef,
+            diffRef
         }
 
     }
@@ -63,28 +73,48 @@ export default function Home() {
         <>
             <main className="flex min-h-screen flex-col items-center justify-between p-24">
 
-                <div className="grid grid-rows-2 gap-20">
+                <div className="grid grid-cols-3 gap-20">
 
-                    <div>
+                    <div hidden={true}>
+                        {/*simulator*/}
                         <LeniaSketch {...leniaProps}/>
                     </div>
 
-                    <div className="grid grid-cols-2 gap-20">
-
-                        <div>
-                            kernel
-                            <KernelSketch kernel={kernel} scale={10000}/>
-                        </div>
-
-                        <div>
-                            initial field
-                            <KernelSketch kernel={initialField} scale={100}/>
-                        </div>
-
-
+                    <div>
+                        field
+                        <Plotter canvasInfo={sharedCanvasInfo} fieldRef={fieldRef}/>
                     </div>
+
+                    <div>
+                        delta
+                        <Plotter canvasInfo={sharedCanvasInfo} fieldRef={diffRef}/>
+                    </div>
+
+                    <div>
+                        convolution
+                        <Plotter canvasInfo={sharedCanvasInfo} fieldRef={convolutionRef}/>
+                    </div>
+
+                </div>
+
+
+                <div className="grid grid-cols-2 gap-20">
+
+                    <div>
+                        kernel
+                        <KernelSketch kernel={kernel} scale={10000}/>
+                    </div>
+
+                    <div>
+                        initial field
+                        <KernelSketch kernel={initialField} scale={100}/>
+                    </div>
+
+
                 </div>
             </main>
         </>
     );
 }
+
+
