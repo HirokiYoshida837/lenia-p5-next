@@ -3,7 +3,7 @@
 import p5Types from 'p5'
 import {SketchComponent} from '@/components/components';
 import p5 from "p5";
-import {convolution} from "@/app/gol/simple/convolution";
+import {convolution} from "@/app/gol/core/convolution";
 import React from "react";
 import {bellCurve} from "@/app/gol/lenia/utils";
 
@@ -15,7 +15,7 @@ export interface LeniaProps {
     canvasInfo: CanvasInfo,
 
 
-    simulationInfo:SimulationInfo
+    simulationInfo: SimulationInfo
 }
 
 interface Kernel {
@@ -29,7 +29,6 @@ interface SimulationInfo {
     growthM: number
     growthS: number
 }
-
 
 
 interface CanvasInfo {
@@ -63,6 +62,9 @@ export const LeniaSketch: React.FC<LeniaProps> = ({...props}: LeniaProps) => {
 
         // 初期状態を描画
         drawCanvas(p5, stateA, props.canvasInfo)
+
+        // p5.noLoop()
+
     };
 
 
@@ -95,19 +97,24 @@ export const LeniaSketch: React.FC<LeniaProps> = ({...props}: LeniaProps) => {
         // update canvas
         drawCanvas(p5, stateA, props.canvasInfo);
         // drawCanvas(p5, diff, props.canvasInfo);
+        // drawCanvas(p5, convolved, props.canvasInfo);
     };
 
 
     return (
         <>
-            <SketchComponent setup={setUp} draw={draw}/>
+            <SketchComponent
+                setup={setUp}
+                draw={draw}
+                // mouseClicked={p5 => p5.redraw()}
+            />
         </>
     );
 }
 
 
-const createGrowthFunc = (m:number, s:number) => {
-    return (u:number) => {
+const createGrowthFunc = (m: number, s: number) => {
+    return (u: number) => {
         return (bellCurve(u, m, s) * 2) - 1;
     }
 }

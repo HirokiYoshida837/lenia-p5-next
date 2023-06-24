@@ -3,7 +3,7 @@
 import p5Types from 'p5'
 import {SketchComponent} from '@/components/components';
 import p5 from "p5";
-import {convolution} from "@/app/gol/simple/convolution";
+import {convolution} from "@/app/gol/core/convolution";
 import React from "react";
 
 
@@ -24,7 +24,7 @@ export const KernelSketch: React.FC<Props> = (props) => {
 
     const setUp = (p5: p5Types, canvasParentRef: Element) => {
 
-        p5.createCanvas(208, 208).parent(canvasParentRef);
+        p5.createCanvas(200, 200).parent(canvasParentRef);
 
         p5.noLoop();
         p5.background(0);

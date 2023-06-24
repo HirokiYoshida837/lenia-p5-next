@@ -27,16 +27,38 @@ export function convolution(input: number[][], kernel: number[][], boundary: Bou
         for (let j = 0; j < outputWidth; j++) {
 
             let sum = 0;
-            // 畳み込み実行
+
             for (let k = 0; k < kernelHeight; k++) {
                 for (let l = 0; l < kernelWidth; l++) {
 
-                    const inputColIndex = getBoundaryIndex(i + k - kernelCenterY, inputHeight, boundary);
-                    const inputRowIndex = getBoundaryIndex(j + l - kernelCenterX, inputWidth, boundary);
-                    sum += input[inputRowIndex][inputColIndex] * kernel[k][l];
+                    // sum +=
+
+                    const boundaryYIndex = getBoundaryIndex(i + k - kernelCenterY, inputHeight, boundary);
+                    const boundaryXIndex = getBoundaryIndex(j + l - kernelCenterX, inputWidth, boundary);
+
+                    sum += (input[boundaryYIndex][boundaryXIndex] * kernel[k][l]);
+
+
                 }
             }
+
             output[i][j] = sum;
+
+            // const boundX = getBoundaryIndex(j + 1, inputWidth, boundary);
+            // output[i][j] = input[i][boundX];
+
+
+            // let sum = 0;
+            // // 畳み込み実行
+            // for (let k = 0; k < kernelHeight; k++) {
+            //     for (let l = 0; l < kernelWidth; l++) {
+            //
+            //         const inputColIndex = getBoundaryIndex(i + k - kernelCenterY, inputHeight, boundary);
+            //         const inputRowIndex = getBoundaryIndex(j + l - kernelCenterX, inputWidth, boundary);
+            //         sum += input[inputRowIndex][inputColIndex] * kernel[k][l];
+            //     }
+            // }
+            // output[i][j] = sum;
         }
     }
 
