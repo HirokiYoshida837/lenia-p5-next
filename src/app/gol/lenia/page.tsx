@@ -29,9 +29,9 @@ export default function Home() {
     console.log(`init field`, initField)
 
 
-    const fieldRef = useRef<number[][]>([]);
-    const convolutionRef = useRef<number[][]>([]);
-    const diffRef = useRef<number[][]>([]);
+    // const fieldRef = useRef<number[][]>([]);
+    // const convolutionRef = useRef<number[][]>([]);
+    // const diffRef = useRef<number[][]>([]);
 
     const sharedCanvasInfo = {
         canvasSize: {
@@ -58,14 +58,7 @@ export default function Home() {
             T: 5,
             growthM: 0.15,
             growthS: 0.0185,
-        },
-
-        refs: {
-            fieldRef,
-            convolutionRef,
-            diffRef
         }
-
     }
 
 
@@ -73,27 +66,24 @@ export default function Home() {
         <>
             <main className="flex min-h-screen flex-col items-center justify-between p-24">
 
-                <div className="grid grid-cols-3 gap-20">
+                <div className="grid grid-cols-1 gap-20">
 
-                    <div hidden={true}>
-                        {/*simulator*/}
-                        <LeniaSketch {...leniaProps}/>
-                    </div>
+                    <LeniaSketch {...leniaProps}/>
 
-                    <div>
-                        field
-                        <Plotter canvasInfo={sharedCanvasInfo} fieldRef={fieldRef}/>
-                    </div>
+                    {/*<div>*/}
+                    {/*    field*/}
+                    {/*    <Plotter canvasInfo={sharedCanvasInfo} fieldRef={fieldRef}/>*/}
+                    {/*</div>*/}
 
-                    <div>
-                        delta
-                        <Plotter canvasInfo={sharedCanvasInfo} fieldRef={diffRef}/>
-                    </div>
+                    {/*<div>*/}
+                    {/*    delta*/}
+                    {/*    <Plotter canvasInfo={sharedCanvasInfo} fieldRef={diffRef}/>*/}
+                    {/*</div>*/}
 
-                    <div>
-                        convolution
-                        <Plotter canvasInfo={sharedCanvasInfo} fieldRef={convolutionRef}/>
-                    </div>
+                    {/*<div>*/}
+                    {/*    convolution*/}
+                    {/*    <Plotter canvasInfo={sharedCanvasInfo} fieldRef={convolutionRef}/>*/}
+                    {/*</div>*/}
 
                 </div>
 
