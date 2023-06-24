@@ -11,6 +11,8 @@ interface Props {
 
     kernel: number[][]
 
+    scale:number
+
 }
 
 
@@ -22,13 +24,13 @@ export const KernelSketch: React.FC<Props> = (props) => {
 
     const setUp = (p5: p5Types, canvasParentRef: Element) => {
 
-        p5.createCanvas(100, 100).parent(canvasParentRef);
+        p5.createCanvas(208, 208).parent(canvasParentRef);
 
         p5.noLoop();
         p5.background(0);
 
 
-        drawCanvas(p5, props.kernel)
+        drawCanvas(p5, props.kernel, props.scale)
 
     }
 
@@ -46,31 +48,33 @@ export const KernelSketch: React.FC<Props> = (props) => {
 }
 
 
-const drawCanvas = (p5: p5, kernel: number[][]) => {
+const drawCanvas = (p5: p5, kernel: number[][], scale:number) => {
 
-    p5.background(0);
 
-    const rectWidth = Math.floor(100 / kernel[0].length);
-    const rectHeight = Math.floor(100 / kernel.length);
+    const rectWidth = Math.floor(208 / kernel[0].length);
+    const rectHeight = Math.floor(208 / kernel.length);
 
     p5.push()
     p5.rectMode("center")
+
+    p5.colorMode('hsb', 100);
+    p5.background(0);
 
     for (let i = 0; i < kernel.length; i++) {
         for (let j = 0; j < kernel[i].length; j++) {
 
             const v = kernel[j][i];
 
-            if (v == 1) {
+            const v1 = (v * scale + 60) % 100;
 
-                p5.fill("#00F000")
-                p5.noStroke()
+            p5.fill(v1, 100, 80)
 
-                const x = j * rectWidth + rectWidth / 2;
-                const y = i * rectHeight + rectHeight / 2;
-                p5.rect(x, y, rectWidth, rectHeight);
+            // p5.noStroke()
 
-            }
+            const x = j * rectWidth + rectWidth / 2;
+            const y = i * rectHeight + rectHeight / 2;
+            p5.rect(x, y, rectWidth, rectHeight);
+            // }
         }
     }
     p5.pop()

@@ -1,4 +1,3 @@
-
 const BoundaryKeys = ["wrap", "reflect", "constant"] as const
 type BoundaryTypes = typeof BoundaryKeys[number];
 
@@ -32,8 +31,8 @@ export function convolution(input: number[][], kernel: number[][], boundary: Bou
             for (let k = 0; k < kernelHeight; k++) {
                 for (let l = 0; l < kernelWidth; l++) {
 
-                    const inputRowIndex = getBoundaryIndex(i + k - kernelCenterY, inputHeight, boundary);
-                    const inputColIndex = getBoundaryIndex(j + l - kernelCenterX, inputWidth, boundary);
+                    const inputColIndex = getBoundaryIndex(i + k - kernelCenterY, inputHeight, boundary);
+                    const inputRowIndex = getBoundaryIndex(j + l - kernelCenterX, inputWidth, boundary);
                     sum += input[inputRowIndex][inputColIndex] * kernel[k][l];
                 }
             }

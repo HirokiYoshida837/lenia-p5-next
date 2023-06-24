@@ -30,7 +30,7 @@ export default function Home() {
                 }
             />
 
-            <KernelSketch kernel={kernel}/>
+            <KernelSketch kernel={kernel} scale={1}/>
 
 
         </>
