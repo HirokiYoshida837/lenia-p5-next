@@ -22,3 +22,6 @@ https://ysko909.github.io/posts/use-p5js-with-react/
 
 
 https://www.typescriptlang.org/docs/handbook/release-notes/typescript-3-8.html
+
+
+https://www.maebashi-it.ac.jp/~odagaki/ImageProc/src/ppt/11.pdf
