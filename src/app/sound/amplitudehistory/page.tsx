@@ -31,8 +31,8 @@ export default function Home() {
         const renderer = p5.createCanvas(1200, 400);
         renderer.parent(canvasParentRef)
 
-        // getPeaksできるのは一回だけ。
-        volumeHistory = mySound.getPeaks(255);
+        // getPeaksできるのは一回だけ?
+        volumeHistory = mySound.getPeaks(64);
 
         p5.noLoop();
     };
@@ -40,8 +40,8 @@ export default function Home() {
     const draw = (p5: p5Types) => {
 
         console.log(`mysound on draw`, mySound)
-        console.log(mySound.getPeaks(255))
-
+        console.log(volumeHistory)
+        console.log(volumeHistory.length)
 
         p5.background(245)
 
@@ -55,8 +55,6 @@ export default function Home() {
         p5.push()
         p5.stroke(0, 109, 203)
         p5.fill(0, 109, 203)
-
-        console.log(volumeHistory.length)
 
         p5.beginShape();
         for (let i = 0; i < volumeHistory.length; i++) {
