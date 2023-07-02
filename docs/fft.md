@@ -27,3 +27,14 @@ https://www.typescriptlang.org/docs/handbook/release-notes/typescript-3-8.html
 https://www.maebashi-it.ac.jp/~odagaki/ImageProc/src/ppt/11.pdf
 
 https://atcoder.jp/contests/atc001/tasks/fft_c
+
+
+TypeScriptでのFFT実装 (npmでinstallしても型情報ないので使いづらい。ええ、、、)
+https://github.com/moonchanyong/typefft
+
+
+https://satanic0258.github.io/snippets/math/FFT.html
+https://atcoder.jp/contests/atc001/submissions/23866021
+https://atcoder.jp/contests/atc001/submissions/23867141
+
+https://kopricky.github.io/code/FFTs/ntt.html

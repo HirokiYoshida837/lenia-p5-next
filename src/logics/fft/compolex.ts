@@ -18,4 +18,12 @@ export class Complex {
     getPowSq() {
         return this.real * this.real + this.imag * this.imag;
     }
+
+    static polar(r: number, theta: number) {
+        return new Complex(r * Math.cos(theta), r * Math.sin(theta))
+    }
+
+    div(d: number) {
+        return new Complex(this.real / d, this.imag / d)
+    }
 }

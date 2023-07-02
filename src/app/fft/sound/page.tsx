@@ -7,6 +7,8 @@ import {SoundSketchComponent} from "@/components/soundsketch";
 // dynamic import する場合は p5.soundで拡張される p5 の型情報がコーディング時に反映されないので、 import type をする。
 import type from "p5/lib/addons/p5.sound"
 import {fft} from "@/logics/fft/fft";
+import {atcoderFFT} from "@/logics/fft/atcoder/atcoderFFT";
+import {Complex} from "@/logics/fft/compolex";
 
 let mySound: SoundFile;
 
@@ -54,7 +56,8 @@ export default function Home() {
         p5.stroke(0, 109, 203)
         p5.fill(0, 109, 203)
 
-        const fftResult = fft(Array.from(volumeHistory), samples);
+         // = fft(Array.from(volumeHistory), samples);
+        const fftResult = atcoderFFT(samples, Array.from(volumeHistory).map(x=>new Complex(x,0)), false)
 
         const power = fftResult.map(x => x.getPowSq())
             .map(x => Math.sqrt(x));
