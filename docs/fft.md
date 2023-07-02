@@ -25,3 +25,5 @@ https://www.typescriptlang.org/docs/handbook/release-notes/typescript-3-8.html
 
 
 https://www.maebashi-it.ac.jp/~odagaki/ImageProc/src/ppt/11.pdf
+
+https://atcoder.jp/contests/atc001/tasks/fft_c

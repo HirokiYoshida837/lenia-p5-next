@@ -9,7 +9,10 @@ export class Complex {
         const i = this.real * complex.imag + this.imag * complex.real;
 
         return new Complex(r, i);
+    }
 
+    add(complex: Complex){
+        return new Complex(this.real+complex.real, this.imag+complex.imag);
     }
 
     getPowSq() {
