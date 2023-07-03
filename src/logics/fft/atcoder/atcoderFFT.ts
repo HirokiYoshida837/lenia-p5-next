@@ -1,9 +1,15 @@
 import {Complex} from "@/logics/fft/compolex";
 
 // それぞれ、AtCoderの提出を参考に。
-// [提出 #23867141 - AtCoder Typical Contest 001](https://atcoder.jp/contests/atc001/submissions/23867141)
-// [提出 #23866021 - AtCoder Typical Contest 001](https://atcoder.jp/contests/atc001/submissions/23866021)
 
+
+/**
+ * [提出 #23866021 - AtCoder Typical Contest 001](https://atcoder.jp/contests/atc001/submissions/23866021)
+ * [FFT (高速フーリエ変換)](https://satanic0258.github.io/snippets/math/FFT.html)
+ * @param sz
+ * @param a
+ * @param inv
+ */
 export function atcoderFFT(sz: number, a: Complex[], inv = false): Complex[] {
     const tmp: Complex[] = Array(sz).fill(new Complex(0, 0))
     const mask = sz - 1
@@ -28,7 +34,7 @@ export function atcoderFFT(sz: number, a: Complex[], inv = false): Complex[] {
 }
 
 
-export function convolution(a: number[], b: number[]) {
+export function atcoderConvolution(a: number[], b: number[]) {
     const m = a.length + b.length - 1
     let sz = 1
     while (m > sz) sz <<= 1
@@ -51,10 +57,12 @@ export function convolution(a: number[], b: number[]) {
 
 /**
  * 複素数使わない、NTTを利用する場合
+ * [提出 #23867141 - AtCoder Typical Contest 001](https://atcoder.jp/contests/atc001/submissions/23867141)
+ * [My Algorithm : kopricky アルゴリズムライブラリ](https://kopricky.github.io/code/FFTs/ntt.html)
  * @param a
  * @param b
  */
-export function convolution2(a: number[], b: number[]): number[] {
+export function atcoderConvolution2(a: number[], b: number[]): number[] {
     const MOD = 998244353
     const root = 3
 
