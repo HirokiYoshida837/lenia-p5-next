@@ -1,7 +1,12 @@
 import {Complex} from "@/logics/fft/compolex";
 
 
-export const dft = (x: Complex[], N: number): Complex[] => {
+// ナイーブなDFT実装
+export const myDftNaive = (x: Complex[], N: number): Complex[] => {
+
+    if (N == 1) {
+        return x;
+    }
 
     const retArray = new Array<Complex>();
 
@@ -12,7 +17,7 @@ export const dft = (x: Complex[], N: number): Complex[] => {
             const ret = new Array<Complex>();
 
 
-            for (let p = 0; p < N - 1; p++) {
+            for (let p = 0; p < N; p++) {
                 const xVal = x[p];
                 const complex = new Complex(Math.cos(2 * Math.PI * p * k / N), -1 * Math.sin(2 * Math.PI * p * k / N))
 
@@ -50,7 +55,7 @@ export const inverseDft = (x: Complex[], N: number): Complex[] => {
             const ret = new Array<Complex>();
 
 
-            for (let p = 0; p < N - 1; p++) {
+            for (let p = 0; p < N; p++) {
                 const xVal = x[p];
                 const complex = new Complex(
                     Math.cos(2 * Math.PI * p * k / N),
@@ -185,8 +190,8 @@ export const convolution2 = (g: number[], h: number[]) => {
     const A = g.map(x => new Complex(x, 0)).concat(tmpA).slice(0, fftLen);
     const B = h.map(x => new Complex(x, 0)).concat(tmpB).slice(0, fftLen);
 
-    const gg = dft(A, fftLen)
-    const hh = dft(B, fftLen)
+    const gg = myDftNaive(A, fftLen)
+    const hh = myDftNaive(B, fftLen)
 
     const array = new Array<Complex>();
     for (let i = 0; i < fftLen; i++) {

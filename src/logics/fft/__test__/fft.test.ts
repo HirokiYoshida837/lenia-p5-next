@@ -1,5 +1,5 @@
 import {describe, expect, it} from "vitest";
-import {dft, fft, inverseFFT, convolution2, convolution} from "../fft";
+import {myDftNaive, fft, inverseFFT, convolution2, convolution} from "../fft";
 import {samples} from "../constants";
 import {Complex} from "../compolex";
 
@@ -83,7 +83,7 @@ describe("FFT test", () => {
         }
 
 
-        const complexes1 = dft(nums);
+        const complexes1 = myDftNaive(nums);
 
         for (let complex of complexes1) {
 
