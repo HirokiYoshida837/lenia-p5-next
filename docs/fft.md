@@ -38,3 +38,51 @@ https://atcoder.jp/contests/atc001/submissions/23866021
 https://atcoder.jp/contests/atc001/submissions/23867141
 
 https://kopricky.github.io/code/FFTs/ntt.html
+
+ながたかなさんの解説。競プロ向けかも。
+https://caddi.tech/archives/836
+
+
+循環の処理はここをまず見よう。
+
+[直線畳み込みと循環畳み込み](https://vrlab.meijo-u.ac.jp/edu/linear-and-cyclic-convolution.html)
+
+こちらもイメージしやすい
+https://qiita.com/Red_Black_GPGPU/items/5cb479f8a30f2065d543
+
+いつものMatLabの資料。
+https://jp.mathworks.com/help/signal/ug/linear-and-circular-convolution.html
+
+[n を法とする循環畳み込み - MATLAB cconv - MathWorks 日本](https://jp.mathworks.com/help/signal/ref/cconv.html?searchHighlight=cconv&s_tid=srchtitle_cconv_1)
+
+
+二次元への拡張
+
+https://atcoder.jp/contests/jag2013spring/tasks/icpc2013spring_f/editorial
+
+- [問題 F： Point Distance](https://jag-icpc.org/?plugin=attach&refer=2012%2FPractice%2F春コンテスト%2F講評&openfile=Point%20Distance.pdf)
+
+
+- http://www.cfme.chiba-u.jp/~haneishi/class/digitalgazo/11Fourier2.pdf
+
+- https://todo314.hatenadiary.org/entry/20130811/1376221445
+
+
+- https://atcoder.jp/contests/jag2013spring/submissions/78261
+
+
+- https://github.com/BirdbrainEngineer/lenia_ca
+
+https://www.youtube.com/watch?v=tS-ib_mgGbU
+
+
+https://qiita.com/izu_nori/items/7810fc2bc0423c8d407f
+https://blog.hamayanhamayan.com/entry/2017/05/20/125607
+https://kazuma8128.hatenablog.com/entry/2018/05/31/144519
+
+
+https://fukushimalab.github.io/hpc_exercise/boxfilter.html
+
+
+
+https://nekodigi.hatenablog.com/entry/2020/12/26/%E3%80%90Processing%E3%80%91Implement_2D_FFT_and_2D_IFFT_and_Gaussian_blur_with_them__%28Cooley-Tukey_Algorithm%29

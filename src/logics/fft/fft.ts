@@ -228,12 +228,27 @@ export const convolutionWithDFT = (g: number[], h: number[]) => {
     return inverseFFTResult;
 }
 
+export const convolutionWithDFTCyclic = (g: number[], h: number[]) => {
+    const l = g.length;
+    const convolution = convolutionWithDFT(g,h);
+
+    const ret = new Array<Complex>(l).fill(new Complex(0,0)).map(x=>new Complex(0,0));
+
+    for (let i = 0; i < convolution.length; i++) {
+        const index = i%l;
+        ret[index] = new Complex(ret[index].real + convolution[i].real, ret[index].imag + convolution[i].imag)
+    }
+
+    return ret;
+}
+
+
 /**
  * フーリエ変換(FFT)を利用した乗算
  * @param g
  * @param h
  */
-export const convolutionWithFFT = (g: number[], h: number[]) => {
+export const convolutionWithFFT = (g: Complex[], h: Complex[]) => {
 
     const m = g.length + h.length;
     let fftLen = 1;
@@ -249,8 +264,8 @@ export const convolutionWithFFT = (g: number[], h: number[]) => {
         .fill(new Complex(0, 0))
         .map((x, i) => new Complex(0, 0))
 
-    const A = g.map(x => new Complex(x, 0)).concat(tmpA).slice(0, fftLen);
-    const B = h.map(x => new Complex(x, 0)).concat(tmpB).slice(0, fftLen);
+    const A = g.concat(tmpA).slice(0, fftLen);
+    const B = h.concat(tmpB).slice(0, fftLen);
 
     const gg = fft(A, fftLen)
     const hh = fft(B, fftLen)
@@ -267,6 +282,20 @@ export const convolutionWithFFT = (g: number[], h: number[]) => {
     const inverseFFTResult = inverseFFT(array, fftLen);
 
     return inverseFFTResult;
+}
+
+export const convolutionWithFFTCyclic = (g: number[], h: number[]) => {
+    const l = g.length;
+    const convolution = convolutionWithFFT(g,h);
+
+    const ret = new Array<Complex>(l).fill(new Complex(0,0)).map(x=>new Complex(0,0));
+
+    for (let i = 0; i < convolution.length; i++) {
+        const index = i%l;
+        ret[index] = new Complex(ret[index].real + convolution[i].real, ret[index].imag + convolution[i].imag)
+    }
+
+    return ret;
 }
 
 
@@ -288,7 +317,7 @@ export const naiveConvolution = (g: number[], h: number[]): number[] => {
 
     }
 
-    console.log(retMap)
+    // console.log(retMap)
 
 
     const retArray = new Array<number>(g.length + h.length)
@@ -305,5 +334,23 @@ export const naiveConvolution = (g: number[], h: number[]): number[] => {
     })
 
     return retArray
+}
+
+export const naiveConvolutionCyclic = (g: number[], h: number[]): number[] => {
+    // g側の長さに合わせるよ
+
+    const l = g.length;
+
+    const convolution = naiveConvolution(g,h);
+
+    const ret = new Array<number>(l).fill(0).map(x=>0);
+
+    for (let i = 0; i < convolution.length; i++) {
+
+        const index = i%l;
+        ret[index]+=convolution[i];
+    }
+
+    return ret;
 }
 
