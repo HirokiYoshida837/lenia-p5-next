@@ -6,6 +6,9 @@ import p5 from "p5";
 import {convolution} from "@/app/gol/core/convolution";
 import React from "react";
 import {state} from "sucrase/dist/types/parser/traverser/base";
+import {my2dConvolutionWithFFT} from "@/logics/fft2d/convolution2d";
+import {Complex} from "@/logics/fft/compolex";
+import {golConvFuncFFT, golConvFuncNaive} from "@/app/gol/simple/golconvolution";
 
 interface GameOfLifeProps {
     initialField: (0 | 1)[][],
@@ -34,7 +37,7 @@ export const GoLSketch: React.FC<GameOfLifeProps> = ({...props}: GameOfLifeProps
     const setUp = (p5: p5Types, canvasParentRef: Element) => {
         p5.createCanvas(props.canvasInfo.canvasSize.x, props.canvasInfo.canvasSize.y).parent(canvasParentRef);
 
-        p5.frameRate(60)
+        p5.frameRate(20)
 
         stateA = props.initialField
 
@@ -46,7 +49,12 @@ export const GoLSketch: React.FC<GameOfLifeProps> = ({...props}: GameOfLifeProps
     const draw = (p5: p5Types) => {
 
         // Aの状態とkernelを畳み込みしたものを計算
-        const convolved = convolution(stateA, props.kernel);
+        // const convolved = convolution(stateA, props.kernel);
+
+        // const convolved = golConvFuncNaive(stateA, props.kernel)
+        const convolved = golConvFuncFFT(stateA, props.kernel)
+
+
         // console.debug(`convolved`, convolved)
 
         // // 畳み込みの計算結果から、各セルが次のフレームでどうなっているかを計算。

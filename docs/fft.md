@@ -86,3 +86,14 @@ https://fukushimalab.github.io/hpc_exercise/boxfilter.html
 
 
 https://nekodigi.hatenablog.com/entry/2020/12/26/%E3%80%90Processing%E3%80%91Implement_2D_FFT_and_2D_IFFT_and_Gaussian_blur_with_them__%28Cooley-Tukey_Algorithm%29
+
+https://uhiaha888.hatenablog.com/entry/20130211/1360594990
+http://mikeo410.minim.ne.jp/cms/~audiolinearpredictionautocorrelationfft
+https://jp.mathworks.com/help/images/fourier-transform.html
+
+https://en.wikipedia.org/wiki/Cross-correlation
+https://trionix.co.jp/case-study/2d-cross-correlation-2dfft-on-fpga/
+
+https://www.slideserve.com/kara/image-processing-3-convolution-and-filtering
+
+http://www.okabe.ap.kyushu-u.ac.jp/2dfft/

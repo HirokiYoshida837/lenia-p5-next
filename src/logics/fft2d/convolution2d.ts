@@ -7,20 +7,22 @@ import {myFft2d, myIFft2d} from "@/logics/fft2d/fft2d";
 
 export const my2dConvolutionWithFFT = (input: Complex[][], kernel: Complex[][], inputSize: number, kernelSize: number):Complex[][] => {
 
+    console.time(`convolution(FFT)`)
+
     // 畳み込みするので、inputを拡張
     const m = inputSize + kernelSize - 1
     let sz = 1
     while (m > sz) sz <<= 1
 
     // 0埋めで拡張
-    const inputPadding0: Complex[][] = new Array(sz).fill([]).map(() => new Array(sz).fill(new Complex(0, 0)))
+    const inputPadding0: Complex[][] = new Array(sz).fill([]).map(() => new Array(sz).fill(new Complex(0, 0)).map(item =>new Complex(0,0)))
     for (let i = 0; i < input.length; i++) {
         for (let j = 0; j < input[i].length; j++) {
             inputPadding0[i][j] = input[i][j];
         }
     }
 
-    const kernelPadding0: Complex[][] = new Array(sz).fill([]).map(() => new Array(sz).fill(new Complex(0, 0)))
+    const kernelPadding0: Complex[][] = new Array(sz).fill([]).map(() => new Array(sz).fill(new Complex(0, 0)).map(item =>new Complex(0,0)))
     for (let i = 0; i < kernel.length; i++) {
         for (let j = 0; j < kernel[i].length; j++) {
             kernelPadding0[i][j] = kernel[i][j];
@@ -28,11 +30,17 @@ export const my2dConvolutionWithFFT = (input: Complex[][], kernel: Complex[][], 
     }
 
     // input, kernelそれぞれ別個でFFT。
+
+    console.time(`FFT2d`)
+
     const inputFFT = myFft2d(sz, inputPadding0);
     const kernelFFT = myFft2d(sz, kernelPadding0);
 
+    console.timeEnd(`FFT2d`)
+
+
     // 両方のアダマール積を取る
-    const invFFTInput: Complex[][] = new Array(sz).fill([]).map(() => new Array(sz).fill(new Complex(0, 0)))
+    const invFFTInput: Complex[][] = new Array(sz).fill([]).map(() => new Array(sz).fill(new Complex(0, 0)).map(item =>new Complex(0,0)))
     for (let i = 0; i < sz; i++) {
         for (let j = 0; j < sz; j++) {
             invFFTInput[i][j] = inputFFT[i][j].multiply(kernelFFT[i][j])
@@ -41,6 +49,8 @@ export const my2dConvolutionWithFFT = (input: Complex[][], kernel: Complex[][], 
 
     // 逆FFTする
     const invFFTresult = myIFft2d(sz, invFFTInput);
+
+    console.timeEnd(`convolution(FFT)`)
 
     return invFFTresult
 }
